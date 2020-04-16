@@ -10,6 +10,10 @@
   margin: 0px;
 }
 
+.movies-search-container { 
+  justify-self: end;
+}
+
 .movies-list-wrapper {
   height: calc(100vh - 54px);
   overflow-y: scroll;

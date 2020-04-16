@@ -96,7 +96,7 @@ export default class MoviesContainer extends React.Component {
               🎬🍿
             </span>
           </h1>
-          <div className="">
+          <div className="movies-search-container">
             {queryError && <span>{errorMessage}</span>}
             <MovieSearch
               onChange={this.handleChange}
