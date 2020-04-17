@@ -1,0 +1,26 @@
+.person-info-container {
+    display: grid;
+    grid-template-columns: .25fr 2fr;
+    padding: 16px 64px;
+    grid-gap: 16px;
+}
+
+.person-image,
+.person-image-placeholder {
+    height: 250px;
+    border-radius: 4px;
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.25)
+}
+
+.person-image-placeholder {
+    background-color: #617081;
+    text-align: center;
+}
+
+.person h2 {
+    margin-bottom: 0;
+}
+
+.person p {
+    line-height: 1.5rem;
+}

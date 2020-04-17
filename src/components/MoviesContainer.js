@@ -5,7 +5,7 @@ import "./Movies.css";
 
 const MovieListItem = ({ movie }) => (
   <Link to={`/movie/${movie.id}`}>
-    <div className="movie-list-item">
+    <div className="card movie">
       <span>{movie.original_title}</span>
     </div>
   </Link>

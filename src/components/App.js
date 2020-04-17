@@ -2,7 +2,7 @@ import React from "react";
 import { Route } from "react-router-dom";
 import MoviesContainer from "./MoviesContainer";
 import MovieContainer from "./MovieContainer";
-import "./App.css";
+import PersonContainer from "./PersonContainer";
 
 class App extends React.Component {
   render() {
@@ -10,6 +10,7 @@ class App extends React.Component {
       <main>
         <Route exact path="/" component={MoviesContainer} />
         <Route path="/movie/:movieId" component={MovieContainer} />
+        <Route path="/person/:personId" component={PersonContainer} />
       </main>
     );
   }
