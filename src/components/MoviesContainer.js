@@ -86,9 +86,7 @@ export default class MoviesContainer extends React.Component {
       )
       .then((res) => {
         if (!res.data.movies.length) {
-          console.log("frrp");
           this.setState({
-            movies: [],
             queryError: true,
             errorMessage: "No results... 😅",
           });
