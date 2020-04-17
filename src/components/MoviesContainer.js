@@ -20,7 +20,7 @@ const MoviesList = ({ movies, handleClick }) => {
       {!!movies &&
         !!movies.length &&
         movies.map((m) => (
-          <MovieListItem movie={m} handleClick={handleClick} key={m.id}/>
+          <MovieListItem movie={m} handleClick={handleClick} key={m.id} />
         ))}
     </div>
   );
@@ -28,15 +28,17 @@ const MoviesList = ({ movies, handleClick }) => {
 
 const MovieSearch = ({ queryValue, onChange, onSubmit }) => {
   return (
-    <form onSubmit={onSubmit}>
-      <input
-        type="text"
-        name="movieQuery"
-        value={queryValue}
-        onChange={onChange}
-      />
-      <input type="submit" value="Search" />
-    </form>
+    <div>
+      <form onSubmit={onSubmit}>
+        <input
+          type="text"
+          name="movieQuery"
+          value={queryValue}
+          onChange={onChange}
+        />
+        <input type="submit" value="Search" />
+      </form>
+    </div>
   );
 };
 
@@ -56,7 +58,12 @@ export default class MoviesContainer extends React.Component {
     axios
       .get(`${process.env.REACT_APP_MOVIE_API_URL}/movies`)
       .then((res) => this.setState({ movies: res.data.movies }))
-      .catch((err) => this.setState({ error: err }));
+      .catch((err) =>
+        this.setState({
+          queryError: true,
+          errorMessage: "Oops! Something went wrong.. 😞",
+        })
+      );
   }
 
   handleChange = (e) => {
@@ -77,9 +84,18 @@ export default class MoviesContainer extends React.Component {
       .get(
         `${process.env.REACT_APP_MOVIE_API_URL}/movies/search?search=${queryValue}`
       )
-      .then((res) =>
-        this.setState({ movies: res.data.movies, queryError: false })
-      )
+      .then((res) => {
+        if (!res.data.movies.length) {
+          console.log("frrp");
+          this.setState({
+            movies: [],
+            queryError: true,
+            errorMessage: "No results... 😅",
+          });
+        } else {
+          this.setState({ movies: res.data.movies, queryError: false });
+        }
+      })
       .catch((err) =>
         this.setState({
           queryError: true,
@@ -90,6 +106,7 @@ export default class MoviesContainer extends React.Component {
 
   render() {
     const { movies, queryValue, queryError, errorMessage } = this.state;
+    console.log("movies", movies);
     return (
       <>
         <header className="movies-header-container">
@@ -99,7 +116,9 @@ export default class MoviesContainer extends React.Component {
             </span>
           </h1>
           <div className="movies-search-container">
-            {queryError && <span>{errorMessage}</span>}
+            <div className="movies-error-container">
+              {queryError && <p>{errorMessage}</p>}
+            </div>
             <MovieSearch
               onChange={this.handleChange}
               onSubmit={this.handleQuery}
